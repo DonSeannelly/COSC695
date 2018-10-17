@@ -1,6 +1,6 @@
 import { Response, Request, Router } from 'express';
 
-export const ActivityRouter = Router()
+export const CatalogRouter = Router()
   .get('/', (req: Request, res: Response) => {
     res.send('Hello world');
   });
