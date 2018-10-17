@@ -1,5 +1,5 @@
 import { ExpressDriver } from '@oriented/express';
-import { CatalogRouter } from './RouteHandler';
+import { CatalogRouter } from './Catalog/RouteHandler';
 
 const app = ExpressDriver.start();
 

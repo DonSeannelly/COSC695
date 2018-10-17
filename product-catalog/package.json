@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "@oriented/express": "^1.0.0-alpha.0.4",
-    "@types/express": "^4.16.0"
+    "@types/express": "^4.16.0",
+    "lokijs": "^1.5.5"
   },
   "devDependencies": {
+    "@types/lokijs": "^1.5.2",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-typescript": "^5.0.0-alpha.3",
