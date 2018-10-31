@@ -1,8 +1,11 @@
-import { Response, Request, Router } from 'express';
+import { Express, Response, Request, Router } from 'express';
 import { Context } from './CatalogModule';
 import { addProduct, getProduct } from './CatalogInteractor';
 
-export const CatalogRouter = (() => {
+export function buildCatalogRouter(app: Express) {
+  app.use('/products', CATALOG_ROUTER);
+}
+const CATALOG_ROUTER = (() => {
   const context = Context;
   const router = Router();
   router.route('/')

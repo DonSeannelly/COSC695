@@ -1,6 +1,6 @@
 import { ExpressDriver } from '@oriented/express';
-import { CatalogRouter } from './Catalog/RouteHandler';
+import { buildCatalogRouter } from './Catalog/RouteHandler';
 
 const app = ExpressDriver.start();
 
-app.use('/products', CatalogRouter);
+buildCatalogRouter(app);
