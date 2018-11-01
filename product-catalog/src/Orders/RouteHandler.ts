@@ -1,18 +1,20 @@
 import { Express, Response, Request, Router } from 'express';
-import { Context } from './OrderModule';
 import { createOrder, getOrder, deleteOrder } from './OrderInteractor';
+import { LokiConnector } from './Loki/LokiConnector';
 
 export function buildOrderRouter(app: Express) {
   app.use('/orders', ORDER_ROUTER);
 }
+const CONTEXT = {
+  dataStore: new LokiConnector(),
+};
 const ORDER_ROUTER = (() => {
-  const context = Context;
   const router = Router();
   router.route('/')
     .post(async (req: Request, res: Response) => {
       try {
         const productID = req.body.productID;
-        const product = await createOrder(context, productID);
+        const product = await createOrder(CONTEXT, productID);
         res.json(product);
       } catch (e) {
         handleError(e, res);
@@ -25,7 +27,7 @@ const ORDER_ROUTER = (() => {
     .get(async (req: Request, res: Response) => {
       try {
         const id = req.params.id;
-        const product = await getOrder(context, id);
+        const product = await getOrder(CONTEXT, id);
         res.json(product);
       } catch (e) {
         handleError(e, res);
@@ -34,7 +36,7 @@ const ORDER_ROUTER = (() => {
     .delete(async (req: Request, res: Response) => {
       try {
         const orderID = req.params.id;
-        await deleteOrder(context, orderID);
+        await deleteOrder(CONTEXT, orderID);
       } catch (e) {
         handleError(e, res);
       }
