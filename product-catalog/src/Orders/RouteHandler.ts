@@ -1,19 +1,18 @@
 import { Express, Response, Request, Router } from 'express';
-import { Context } from './CatalogModule';
-import { addProduct, getProduct, updateProduct, deleteProduct } from './CatalogInteractor';
+import { Context } from './OrderModule';
+import { createOrder, getOrder, deleteOrder } from './OrderInteractor';
 
-export function buildCatalogRouter(app: Express) {
-  app.use('/products', CATALOG_ROUTER);
+export function buildOrderRouter(app: Express) {
+  app.use('/orders', ORDER_ROUTER);
 }
-const CATALOG_ROUTER = (() => {
+const ORDER_ROUTER = (() => {
   const context = Context;
   const router = Router();
   router.route('/')
     .post(async (req: Request, res: Response) => {
       try {
-        const name = req.body.name;
-        const price = req.body.price;
-        const product = await addProduct(context, name, price);
+        const productID = req.body.productID;
+        const product = await createOrder(context, productID);
         res.json(product);
       } catch (e) {
         handleError(e, res);
@@ -26,27 +25,16 @@ const CATALOG_ROUTER = (() => {
     .get(async (req: Request, res: Response) => {
       try {
         const id = req.params.id;
-        const product = await getProduct(context, id);
+        const product = await getOrder(context, id);
         res.json(product);
-      } catch (e) {
-        handleError(e, res);
-      }
-    })
-    .patch(async (req: Request, res: Response) => {
-      try {
-        const id = req.params.id;
-        const name = req.body.name;
-        const price = req.body.price;
-        if (!name && !price) throw new Error('A name or price must be provided.');
-        await updateProduct(context, id, name, price);
       } catch (e) {
         handleError(e, res);
       }
     })
     .delete(async (req: Request, res: Response) => {
       try {
-        const id = req.params.id;
-        await deleteProduct(context, id);
+        const orderID = req.params.id;
+        await deleteOrder(context, orderID);
       } catch (e) {
         handleError(e, res);
       }
