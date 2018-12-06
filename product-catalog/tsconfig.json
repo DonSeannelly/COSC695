@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "lib": ["es2017", "dom"],
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "suppressImplicitAnyIndexErrors": true,
     "downlevelIteration": true,
     "allowUnusedLabels": false
