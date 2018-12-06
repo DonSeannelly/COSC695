@@ -1,6 +1,9 @@
-import { Context } from '../shared/Context';
 import { Product } from '../shared/Product';
+import { ProductGateway } from './ProductGateway';
 
+interface Context {
+  dataStore: ProductGateway,
+}
 export async function addProduct(context: Context, name: string, price: number): Promise<Product> {
   const { dataStore } = context;
   try {
